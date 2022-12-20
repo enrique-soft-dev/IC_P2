@@ -2,7 +2,7 @@
     (:domain waiter)
     (:objects
         charging-base video-room room1 room2 room3 room4 room5 - location
-        p1 p2 p3 p4 - patient
+        p1 p2 p3 p4 p5 - patient
         t01 t02 t03 t04 t05 t06 t07 t08 t09 t10 t11 t12 t13 t14 t15 - time
         t16 t17 t18 t19 t20 t21 t22 t23 t24 t25 t26 t27 t28 t29 t30 - time
         t31 t32 t33 t34 t35 t36 t37 t38 t39 t40 t41 t42 t43 t44 t45 - time
@@ -26,6 +26,9 @@
         (maybe-patient-at p4 room4)
         (maybe-patient-at p4 room5)
 
+        (maybe-patient-at p5 room4)
+        (maybe-patient-at p5 room5)
+
         (search-time p1 t04)
         (call-reservation p1 t07 t10)
         (call-cancelled p1 t06)
@@ -39,6 +42,9 @@
 
         (search-time p4 t35)
         (call-reservation p4 t40 t43)
+
+        (search-time p5 t17)
+        (call-reservation p5 t20 t26)
         
         (next-time t01 t02) (next-time t02 t03) (next-time t03 t04) (next-time t04 t05) 
         (next-time t05 t06) (next-time t06 t07) (next-time t07 t08) (next-time t08 t09) 
@@ -58,6 +64,7 @@
             (completed p2)
             (completed p3)
             (completed p4)
+            (completed p5)
         )
     )
 )
