@@ -38,7 +38,7 @@
         (call-reservation p3 t30 t35)
 
         (search-time p4 t35)
-        (call-reservation p4 t40 t45)
+        (call-reservation p4 t40 t43)
         
         (next-time t01 t02) (next-time t02 t03) (next-time t03 t04) (next-time t04 t05) 
         (next-time t05 t06) (next-time t06 t07) (next-time t07 t08) (next-time t08 t09) 
