@@ -1,0 +1,1 @@
+../cbp-roller/plan ./p2_domain.pddl ./p2_problem.pddl ./p2_plan.txt
