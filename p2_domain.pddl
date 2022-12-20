@@ -9,13 +9,12 @@
         (next-time ?curr_time - time ?next_time - time)
         (robot-at ?loc - location)
         (maybe-patient-at ?patient - patient ?loc - location)
-        (announced-patient-at ?patient - patient ?loc - location)
         (call-reservation ?patient - patient ?start_time - time ?end_time - time)
+        (call-cancelled ?patient - patient ?time - time)
         (search-time ?patient - patient ?time - time)
         (searching ?patient)
         (occupied)
-        (call-ended)
-        (call-cancelled ?patient - patient ?time - time)
+        (stop-time)
         (can-call ?patient)
         (calling ?patient - patient ?end_time - time)
         (completed ?patient - patient)
@@ -26,7 +25,7 @@
         :precondition (and 
             (current-time ?curr_time)
             (next-time ?curr_time ?next_time)
-            (not (call-ended))
+            (not (stop-time))
         )
         :effect (and 
             (not (current-time ?curr_time))
@@ -45,6 +44,7 @@
             (searching ?patient)
             (not (search-time ?patient ?curr_time))
             (occupied)
+            (stop-time)
         )
     )
 
@@ -75,21 +75,22 @@
             (not (current-time ?curr_time))
             (current-time ?next_time)
             (not (maybe-patient-at ?patient ?loc))
-            (announced-patient-at ?patient ?loc)
         )
     )
     
     (:action greet-patient
-        :parameters (?patient - patient ?start_time ?end_time - time)
+        :parameters (?patient - patient ?greet_time ?start_time ?end_time - time)
         :precondition (and 
-            (current-time ?start_time)
+            (current-time ?greet_time)
             (robot-at video-room)
             (searching ?patient)
+            (next-time ?greet_time ?start_time)
             (call-reservation ?patient ?start_time ?end_time)
         )
         :effect (and 
-            (not (searching ?patient))
             (can-call ?patient)
+            (not (current-time ?greet_time))
+            (current-time ?start_time)
         )
     )
     
@@ -101,11 +102,15 @@
             (robot-at video-room)
             (can-call ?patient)
             (call-reservation ?patient ?start_time ?end_time)
+            (stop-time)
+            (searching ?patient)
         )
         :effect (and 
             (not (can-call ?patient))
             (calling ?patient ?end_time)
             (not (call-reservation ?patient ?start_time ?end_time))
+            (not (stop-time))
+            (not (searching ?patient))
         )
     )
 
@@ -120,23 +125,23 @@
         :effect (and 
             (not (calling ?patient ?curr_time))
             (completed ?patient)
-            (call-ended)
+            (stop-time)
         )
     )
     
     
     (:action return-to-base
-        :parameters (?patient - patient ?curr_time - time)
+        :parameters (?patient - patient ?curr_time - time ?loc - location)
         :precondition (and 
             (current-time ?curr_time)
-            (robot-at video-room)
-            (call-ended)
+            (robot-at ?loc)
+            (stop-time)
             (not (search-time ?patient ?curr_time))
             (occupied)
         )
         :effect (and 
-            (not (call-ended))
-            (not (robot-at video-room))
+            (not (stop-time))
+            (not (robot-at ?loc))
             (robot-at charging-base)
             (not (occupied))
         )
@@ -146,14 +151,30 @@
         :parameters (?patient - patient ?curr_time - time)
         :precondition (and 
             (current-time ?curr_time)
-            (robot-at video-room)
-            (call-ended)
+            (stop-time)
             (occupied)
             (search-time ?patient ?curr_time)
         )
         :effect (and 
-            (not (call-ended))
+            (not (stop-time))
             (not (occupied))
+        )
+    )
+
+
+    (:action cancel-call
+        :parameters (?patient - patient ?curr_time ?start_time ?end_time - time)
+        :precondition (and 
+            (current-time ?curr_time)
+            (searching ?patient)
+            (call-cancelled ?patient ?curr_time)
+            (call-reservation ?patient ?start_time ?end_time)
+        )
+        :effect (and 
+            (completed ?patient)
+            (stop-time)
+            (not (searching ?patient))
+            (not (call-reservation ?patient ?start_time ?end_time))
         )
     )
     
