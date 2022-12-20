@@ -1,0 +1,222 @@
+begin_version
+3
+end_version
+begin_metric
+0
+end_metric
+6
+begin_variable
+var0
+-1
+3
+Atom robot-at(bar)
+Atom robot-at(buffet)
+Atom robot-at(kitchen)
+end_variable
+begin_variable
+var1
+-1
+2
+Atom takes-request()
+NegatedAtom takes-request()
+end_variable
+begin_variable
+var2
+-1
+4
+Atom fetching(c1, tea)
+Atom request(c1, tea)
+Atom served(c1)
+Atom serving(c1, tea)
+end_variable
+begin_variable
+var3
+-1
+4
+Atom fetching(c2, coffee)
+Atom request(c2, coffee)
+Atom served(c2)
+Atom serving(c2, coffee)
+end_variable
+begin_variable
+var4
+-1
+4
+Atom fetching(c3, coffee)
+Atom request(c3, coffee)
+Atom served(c3)
+Atom serving(c3, coffee)
+end_variable
+begin_variable
+var5
+-1
+4
+Atom fetching(c4, tea)
+Atom request(c4, tea)
+Atom served(c4)
+Atom serving(c4, tea)
+end_variable
+0
+begin_state
+0
+0
+1
+1
+1
+1
+end_state
+begin_goal
+4
+2 2
+3 2
+4 2
+5 2
+end_goal
+18
+begin_operator
+get-drink c1 tea kettle kitchen
+1
+0 2
+1
+0 2 0 3
+1
+end_operator
+begin_operator
+get-drink c2 coffee coffee_maker buffet
+1
+0 1
+1
+0 3 0 3
+1
+end_operator
+begin_operator
+get-drink c3 coffee coffee_maker buffet
+1
+0 1
+1
+0 4 0 3
+1
+end_operator
+begin_operator
+get-drink c4 tea kettle kitchen
+1
+0 2
+1
+0 5 0 3
+1
+end_operator
+begin_operator
+give-drink c1 tea
+1
+0 0
+2
+0 2 3 2
+0 1 -1 0
+1
+end_operator
+begin_operator
+give-drink c2 coffee
+1
+0 0
+2
+0 3 3 2
+0 1 -1 0
+1
+end_operator
+begin_operator
+give-drink c3 coffee
+1
+0 0
+2
+0 4 3 2
+0 1 -1 0
+1
+end_operator
+begin_operator
+give-drink c4 tea
+1
+0 0
+2
+0 5 3 2
+0 1 -1 0
+1
+end_operator
+begin_operator
+go-to-place bar buffet
+0
+1
+0 0 0 1
+1
+end_operator
+begin_operator
+go-to-place bar kitchen
+0
+1
+0 0 0 2
+1
+end_operator
+begin_operator
+go-to-place buffet bar
+0
+1
+0 0 1 0
+1
+end_operator
+begin_operator
+go-to-place buffet kitchen
+0
+1
+0 0 1 2
+1
+end_operator
+begin_operator
+go-to-place kitchen bar
+0
+1
+0 0 2 0
+1
+end_operator
+begin_operator
+go-to-place kitchen buffet
+0
+1
+0 0 2 1
+1
+end_operator
+begin_operator
+take-request c1 tea kettle kitchen
+1
+0 0
+2
+0 2 1 0
+0 1 0 1
+1
+end_operator
+begin_operator
+take-request c2 coffee coffee_maker buffet
+1
+0 0
+2
+0 3 1 0
+0 1 0 1
+1
+end_operator
+begin_operator
+take-request c3 coffee coffee_maker buffet
+1
+0 0
+2
+0 4 1 0
+0 1 0 1
+1
+end_operator
+begin_operator
+take-request c4 tea kettle kitchen
+1
+0 0
+2
+0 5 1 0
+0 1 0 1
+1
+end_operator
+0
