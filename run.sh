@@ -1,0 +1,1 @@
+../fast_downward/fast-downward.py --alias seq-opt-lmcut --plan-file ./salida-problema.txt ./domain.pddl ./problema.pddl

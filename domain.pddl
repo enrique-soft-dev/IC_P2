@@ -17,6 +17,7 @@
         (stop-time)
         (can-call ?patient)
         (calling ?patient - patient ?end_time - time)
+        (call-ended)
         (completed ?patient - patient)
     )
 
@@ -26,6 +27,7 @@
             (current-time ?curr_time)
             (next-time ?curr_time ?next_time)
             (not (stop-time))
+            (not (call-ended))
         )
         :effect (and 
             (not (current-time ?curr_time))
@@ -50,16 +52,14 @@
 
     (:action go-to-place
         :parameters (?patient - patient ?loc_i ?loc_f - location)
-        :precondition 
-            (and
-                (robot-at ?loc_i)
-                (searching ?patient)
-            )
-        :effect 
-            (and
-                (robot-at ?loc_f)
-                (not (robot-at ?loc_i))
-            )
+        :precondition (and
+            (robot-at ?loc_i)
+            (searching ?patient)
+        )
+        :effect (and
+            (robot-at ?loc_f)
+            (not (robot-at ?loc_i))
+        )
     )
 
     (:action announce-patient
@@ -125,7 +125,7 @@
         :effect (and 
             (not (calling ?patient ?curr_time))
             (completed ?patient)
-            (stop-time)
+            (call-ended)
         )
     )
     
@@ -135,12 +135,12 @@
         :precondition (and 
             (current-time ?curr_time)
             (robot-at ?loc)
-            (stop-time)
+            (call-ended)
             (not (search-time ?patient ?curr_time))
             (occupied)
         )
         :effect (and 
-            (not (stop-time))
+            (not (call-ended))
             (not (robot-at ?loc))
             (robot-at charging-base)
             (not (occupied))
@@ -151,12 +151,12 @@
         :parameters (?patient - patient ?curr_time - time)
         :precondition (and 
             (current-time ?curr_time)
-            (stop-time)
+            (call-ended)
             (occupied)
             (search-time ?patient ?curr_time)
         )
         :effect (and 
-            (not (stop-time))
+            (not (call-ended))
             (not (occupied))
         )
     )
@@ -167,12 +167,14 @@
         :precondition (and 
             (current-time ?curr_time)
             (searching ?patient)
+            (stop-time)
             (call-cancelled ?patient ?curr_time)
             (call-reservation ?patient ?start_time ?end_time)
         )
         :effect (and 
             (completed ?patient)
-            (stop-time)
+            (not (stop-time))
+            (call-ended)
             (not (searching ?patient))
             (not (call-reservation ?patient ?start_time ?end_time))
         )

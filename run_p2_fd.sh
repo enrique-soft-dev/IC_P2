@@ -1,1 +1,0 @@
-../fast_downward/fast-downward.py --alias seq-opt-lmcut --plan-file ./p2_plan.txt --sas-file ./p2_sas.txt ./p2_domain.pddl ./p2_problem.pddl
