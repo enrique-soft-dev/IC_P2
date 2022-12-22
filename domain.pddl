@@ -1,4 +1,6 @@
-(define (domain waiter)
+; Mario Maroto Jimenez (100429025) 
+; Enrique Mateos Melero (100429073)
+(define (domain robot)
     (:requirements :typing :negative-preconditions)
     (:types
         location patient time - object

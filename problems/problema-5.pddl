@@ -1,5 +1,5 @@
-(define (problem problema-5)
-    (:domain waiter)
+(define (problem problema5)
+    (:domain robot)
     (:objects
         charging-base video-room room1 room2 room3 room4 room5 - location
         p1 p2 - patient
